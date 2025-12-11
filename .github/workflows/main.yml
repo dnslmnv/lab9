@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -25,9 +25,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Start local HTTP server
+        shell: pwsh
         run: |
-          python -m http.server 8000 &
+          Start-Process python -ArgumentList "-m http.server 8000" -WorkingDirectory tests -WindowStyle Hidden
+          Start-Sleep -Seconds 3
       
       - name: Run tests
+        env:
+          PYTHONPATH: .
         run: |
           pytest --maxfail=1 --disable-warnings -v
