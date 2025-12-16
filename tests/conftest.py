@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 print("hi")
+print("123")
 @pytest.fixture
 def driver():
     options = webdriver.ChromeOptions()
